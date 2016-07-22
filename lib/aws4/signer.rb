@@ -34,9 +34,9 @@ module AWS4
 
     def authorization(headers)
       [
-        "AWS4-HMAC-SHA256 Credential=#{access_key}/#{credential_string}",
+        "AWS4-HMAC-SHA256 Credential=#{Base64.encode64(access_key)}/#{Base64.encode64(credential_string)}",
         "SignedHeaders=#{headers.keys.map(&:downcase).sort.join(";")}",
-        "Signature=#{signature}"
+        "Signature=#{Base64.encode64(signature)}"
       ].join(', ')
     end
 
